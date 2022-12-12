@@ -1,13 +1,12 @@
-const mysql = require('mysql2/promise');
-const dbConfig = require('../configs/db.config');
+const env = process.env;
+const mongoose = require('mongoose');
 
-async function query(sql, params) {
-  const connection = await mysql.createConnection(dbConfig);
-  const [results, ] = await connection.execute(sql, params);
-
-  return results;
-}
+mongoose.connect(env.MONGO_URL).then(
+  () => {console.log("Mongo Connected Successfully")},
+  (error) => {console.log("MongoDB connection error")}
+);
+const db = mongoose.connection;
 
 module.exports = {
-  query
+  db
 }
