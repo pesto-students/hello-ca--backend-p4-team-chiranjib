@@ -5,18 +5,39 @@ const Schema = mongoose.Schema;
 
 
 const usersSchema = new Schema({
-    "first_name": String,
-    "last_name": String,
-    "country_code": Number,
-    "phone_number": Number,
-    "available_talk_time": Number,
-    "member_registration_num": String,
-    "user_type": {
-        "type": String,
-        "enum": ["User", "CA", "ADMIN"]
+    first_name: {
+        type: String
     },
-    "is_verified": Boolean,
-    "last_login": Date,
+    last_name: {
+        type: String
+    },
+    country_code: {
+        type: Number,
+        default: 91
+    },
+    mobile: {
+        type: Number,
+        required: true,
+        unique: true
+    },
+    available_talk_time: {
+        type: Number,
+        default: 0
+    },
+    member_registration_number: String,
+    user_type: {
+        type: String,
+        enum: ["User", "CA", "ADMIN"]
+    },
+    profile_verified: {
+        type: Boolean,
+        default: false
+    },
+    mobile_verified: {
+        type: Boolean,
+        default: false
+    },
+    last_login: Date,
 });
 
 

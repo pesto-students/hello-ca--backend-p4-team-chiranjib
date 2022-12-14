@@ -1,3 +1,5 @@
+const dotenv =  require('dotenv');
+dotenv.config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -5,6 +7,10 @@ const morgan = require('morgan');
 const helmet = require("helmet");
 const app = express();
 const port = process.env.PORT || 3000;
+const authRouter = require('./src/routes/auth.route');
+const userRouter = require('./src/routes/user.route');
+const callRouter = require('./src/routes/call.route');
+const paymentRouter = require('./src/routes/payment.route');
 
 const corsOptions = {
   origin: '*',
@@ -24,6 +30,11 @@ app.use(morgan());
 app.get('/', (req, res) => {
   res.json({'message': 'ok'});
 });
+
+app.use('/auth', authRouter);
+app.use('/user', userRouter);
+app.use('/call', callRouter);
+app.use('/payment', paymentRouter);
 
 /* Error handler middleware */
 app.use((err, req, res, next) => {
