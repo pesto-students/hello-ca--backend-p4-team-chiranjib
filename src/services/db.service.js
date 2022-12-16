@@ -7,6 +7,4 @@ mongoose.connect(env.MONGO_URL).then(
 );
 const db = mongoose.connection;
 
-module.exports = {
-  db
-}
+module.exports = db;

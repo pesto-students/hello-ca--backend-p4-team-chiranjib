@@ -1,35 +1,27 @@
-const db = require('./db.service');
-const { User } = require('../models')
+const User = require('../models/user.model')
 const otpHelper = require('../utils/otp.util');
-const config = require('../configs/general.config');
 
 async function register(body){
-  const user = await User.create(...body);
-  if(!user) {
-    return {status: 400, info: "Error in registering"};
-  } else {
-    otpHelper.sendOTP(process.env.SEND_OTP_TEMPLATE_ID, user.mobile, process.env.AUTH_KEY);
+  // console.log("auth service User", User.create({...body}));
+  try {
+    const user = await User.create(body);
+    if(!user) {
+      return {status: 400, info: "User not found"};
+    } else {
+      return await otpHelper.sendOTP(process.env.SEND_OTP_TEMPLATE_ID, user.mobile, process.env.AUTH_KEY);
+    }
+  } catch (err) {
+    console.log("error while reigstering the user");
+    if(err.code === 11000) {
+      return {status: 400, info: "User already registered"};
+    }
+    return {status: 400, info: err.message};
   }
+  
 }
 
-async function login(programmingLanguage){
-  const result = await db.query(
-    `INSERT INTO programming_languages 
-    (name, released_year, githut_rank, pypl_rank, tiobe_rank) 
-    VALUES 
-    (?, ?, ?, ?, ?)`, 
-    [
-      programmingLanguage.name, programmingLanguage.released_year,
-      programmingLanguage.githut_rank, programmingLanguage.pypl_rank,
-      programmingLanguage.tiobe_rank
-    ]
-  );
-
-  let message = 'Error in creating programming language';
-
-  if (result.affectedRows) {
-    message = 'Programming language created successfully';
-  }
+async function login(body){
+  const result = {}
 
   return {message};
 }

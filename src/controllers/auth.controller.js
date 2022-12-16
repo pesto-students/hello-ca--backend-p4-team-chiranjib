@@ -11,9 +11,10 @@ const authService = require('../services/auth.service');
 
 async function register(req, res, next) {
   try {
+    // console.log(req.body);
     res.json(await authService.register(req.body));
   } catch (err) {
-    console.error(`Error while login`, err.message);
+    console.error(`Error while registration`, err.message);
     next(err);
   }
 }

@@ -1,10 +1,8 @@
-// Require Mongoose
 const mongoose = require("mongoose");
-// Define a schema
 const Schema = mongoose.Schema;
 
 
-const usersSchema = new Schema({
+const userSchema = new Schema({
     first_name: {
         type: String
     },
@@ -42,4 +40,6 @@ const usersSchema = new Schema({
 
 
 // Compile model from schema
-const User = mongoose.model("User", usersSchema);
+const User = mongoose.model("User", userSchema);
+
+module.exports = User;
