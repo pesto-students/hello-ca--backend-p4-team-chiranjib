@@ -21,9 +21,20 @@ async function register(req, res, next) {
 
 async function login(req, res, next) {
   try {
-    res.json(await authService.create(req.body));
+    console.log(req.body);
+    res.json(await authService.login(req.body));
   } catch (err) {
-    console.error(`Error while registering`, err.message);
+    console.error(`Error while login`, err.message);
+    next(err);
+  }
+}
+
+async function verifyOtp(req, res, next) {
+  try {
+    console.log("params: ", req.query);
+    res.json(await authService.verifyOtp(req.query));
+  } catch (err) {
+    console.error(`Error while verifying OTP`, err.message);
     next(err);
   }
 }
@@ -48,5 +59,6 @@ async function login(req, res, next) {
 
 module.exports = {
   login,
-  register
+  register,
+  verifyOtp
 };

@@ -9,11 +9,17 @@ const sendOTP = function (template_id, mobile, authkey) {
     next(err);
     return { status: 400, info: "Error while sending SMS"};
   }
-  
 }
 
 const verfifyOTP = function (otp, authkey, mobile) {
-  `https://api.msg91.com/api/v5/otp/verify?otp=${otp}&authkey=${authkey}&mobile=${mobile}`
+  try {
+    console.log(`https://api.msg91.com/api/v5/otp/verify?otp=${otp}&authkey=${authkey}&mobile=${mobile}`);
+    return {status: 200, info: "User otp verified"};
+  } catch (err) {
+    console.error(`Error while verifing user's otp`, err.message);
+    next(err);
+    return { status: 400, info: "Error while verifing user's otp"};
+  }
 }
 
 const resendOTP = function (authkey, type, mobile) {
