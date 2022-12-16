@@ -1,0 +1,143 @@
+{
+	"info": {
+		"_postman_id": "85f6e1c7-d5e3-4cb0-bf4a-bea73a76318a",
+		"name": "HelloCA Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "2141710-85f6e1c7-d5e3-4cb0-bf4a-bea73a76318a"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "register",
+					"id": "481e1b95-e01d-4d08-88dd-3380c5680c67",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "first_name",
+									"value": "nikhil",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "khandelwal",
+									"type": "text"
+								},
+								{
+									"key": "country_code",
+									"value": "91",
+									"type": "text"
+								},
+								{
+									"key": "mobile",
+									"value": "9990882550",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{server}}/auth/register",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "verifyOtp",
+					"id": "088ad63a-e056-4134-b6e7-c525a0b8d3b7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{server}}/auth/verifyOtp?mobile=9990882550&otp=1234&country_code=91",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"auth",
+								"verifyOtp"
+							],
+							"query": [
+								{
+									"key": "mobile",
+									"value": "9990882550",
+									"type": "text"
+								},
+								{
+									"key": "otp",
+									"value": "1234",
+									"type": "text"
+								},
+								{
+									"key": "country_code",
+									"value": "91",
+									"type": "text"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"id": "f140dcdb-97ac-4578-9f74-ee5696c56383",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "country_code",
+									"value": "91",
+									"type": "text"
+								},
+								{
+									"key": "mobile",
+									"value": "9990882550",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{server}}/auth/login",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "0e1ad9a3-0dca-481c-8246-ad4bb0f757eb"
+		}
+	]
+}
