@@ -40,6 +40,12 @@
 									"key": "mobile",
 									"value": "9990882550",
 									"type": "text"
+								},
+								{
+									"key": "user_type",
+									"value": "USER",
+									"type": "text",
+									"description": "\"USER\", \"CA\", \"ADMIN\""
 								}
 							]
 						},
@@ -138,6 +144,21 @@
 				}
 			],
 			"id": "0e1ad9a3-0dca-481c-8246-ad4bb0f757eb"
+		},
+		{
+			"name": "User",
+			"item": [],
+			"id": "7dc307e2-a21a-4abc-b576-0dd64e5fedab"
+		},
+		{
+			"name": "Call",
+			"item": [],
+			"id": "10b2f163-90f9-42e2-9a29-a76f99399918"
+		},
+		{
+			"name": "Payment",
+			"item": [],
+			"id": "17f7f76a-f0b4-40b7-9b3e-2e076b8dfef7"
 		}
 	]
 }
