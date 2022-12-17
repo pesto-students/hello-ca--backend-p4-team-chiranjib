@@ -25,7 +25,7 @@ const userSchema = new Schema({
     member_registration_number: String,
     user_type: {
         type: String,
-        enum: ["User", "CA", "ADMIN"]
+        enum: ["USER", "CA", "ADMIN"]
     },
     profile_verified: {
         type: Boolean,

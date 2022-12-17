@@ -24,6 +24,7 @@
     "morgan": "^1.10.0",
     "dotenv": "^16.0.3",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.8.0"
   },
   "devDependencies": {

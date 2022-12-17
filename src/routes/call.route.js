@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const callController = require('../controllers/call.controller');
+const checkAuth = require('../utils/checkAuth');
 
 /* GET programming languages. */
 router.get('/', callController.get);

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/user.controller');
+const checkAuth = require('../utils/checkAuth');
 
 /* GET programming languages. */
 router.get('/', userController.get);
