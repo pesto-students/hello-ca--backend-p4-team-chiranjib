@@ -1,4 +1,4 @@
-const User = require('../models/user.model')
+const User = require('../models/user.model');
 const otpHelper = require('../utils/otp.util');
 const jwt = require('jsonwebtoken');
 
@@ -30,13 +30,12 @@ async function verifyOtp(body) {
     } else {
       const response = otpHelper.verfifyOTP(body.otp, process.env.MSG_AUTH_KEY, body.country_code + body.mobile);
       if(response.status === 200) {
-        const token = await getJWT(user._id);
-        return {token: token};
+        const token = await getJWT(user._id, user.user_type);
+        return {token: token, user: user};
       } else {
         console.log("response from verifying otp", response);
         next();
       }
-      
     }
   } catch (err) {
     console.log("error while verifying OTP of the user");
@@ -58,8 +57,11 @@ async function login(body){
   }
 }
 
-async function getJWT(userId) {
-  const token = jwt.sign({user_id: userId}, process.env.JWT_SIGN_KEY);
+async function getJWT(userId, userType) {
+  const token = jwt.sign({
+    user_id: userId,
+    user_type: userType
+  }, process.env.JWT_SIGN_KEY);
   return token;
 }
 

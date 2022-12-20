@@ -11,6 +11,7 @@ const authRouter = require('./src/routes/auth.route');
 const userRouter = require('./src/routes/user.route');
 const callRouter = require('./src/routes/call.route');
 const paymentRouter = require('./src/routes/payment.route');
+const { checkAuth } = require('./src/utils/checkAuth');
 
 const corsOptions = {
   origin: '*',
@@ -32,9 +33,9 @@ app.get('/', (req, res) => {
 });
 
 app.use('/auth', authRouter);
-app.use('/user', userRouter);
-app.use('/call', callRouter);
-app.use('/payment', paymentRouter);
+app.use('/user', checkAuth, userRouter);
+app.use('/call', checkAuth, callRouter);
+app.use('/payment', checkAuth, paymentRouter);
 
 /* Error handler middleware */
 app.use((err, req, res, next) => {

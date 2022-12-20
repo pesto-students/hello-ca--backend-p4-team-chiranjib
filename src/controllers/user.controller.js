@@ -1,44 +1,27 @@
-const programmingLanguages = require('../services/programmingLanguages.service');
+const {getUserIdFromToken} = require('../utils/checkAuth');
+const userService = require('../services/user.service');
 
 async function get(req, res, next) {
   try {
-      res.json(await programmingLanguages.getMultiple(req.query.page));
+    console.log("in get user");
+      const token = await getUserIdFromToken(req, res, next);
+      res.json(await userService.get(token));
   } catch (err) {
-      console.error(`Error while getting programming languages`, err.message);
+      console.error(`Error while getting user details`, err.message);
       next(err);
-  }
-}
-
-async function create(req, res, next) {
-  try {
-    res.json(await programmingLanguages.create(req.body));
-  } catch (err) {
-    console.error(`Error while creating programming language`, err.message);
-    next(err);
   }
 }
 
 async function update(req, res, next) {
   try {
-    res.json(await programmingLanguages.update(req.params.id, req.body));
+    res.json(await userService.update(getUserIdFromToken, req.body));
   } catch (err) {
-    console.error(`Error while updating programming language`, err.message);
-    next(err);
-  }
-}
-
-async function remove(req, res, next) {
-  try {
-    res.json(await programmingLanguages.remove(req.params.id));
-  } catch (err) {
-    console.error(`Error while deleting programming language`, err.message);
+    console.error(`Error while updating user`, err.message);
     next(err);
   }
 }
 
 module.exports = {
   get,
-  create,
-  update,
-  remove
+  update
 };
