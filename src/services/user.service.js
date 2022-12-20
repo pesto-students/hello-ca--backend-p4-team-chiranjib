@@ -18,14 +18,12 @@ async function get(user_id) {
 
 async function update(user_id, body) {
     try {
-        const user = await User.findOneById({_id: user_id});
+        const user = await User.findById({_id: user_id});
         if(!user) {
             return {status: 400, info: "User not found"};
         } else {
-            const updatedUser = await User.findOneAndUpdate(user_id, {...body});
-            updatedUser.save().then((savedDocument) => {
-                return {status: 200, user: savedDocument};
-            });          
+            const updatedUser = await User.findOneAndUpdate(user_id, {...body}, {new: true});
+            return { status: 200, user: updatedUser};         
         }
     } catch(err) {
         console.log("error in updating user", err.message);
