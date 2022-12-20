@@ -11,6 +11,7 @@ const userSchema = new Schema({
     },
     country_code: {
         type: Number,
+        required: true,
         default: 91
     },
     mobile: {
@@ -36,7 +37,7 @@ const userSchema = new Schema({
         default: false
     },
     last_login: Date,
-});
+}, { timestamps: true });
 
 
 // Compile model from schema

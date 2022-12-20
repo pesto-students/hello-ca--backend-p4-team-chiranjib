@@ -43,7 +43,7 @@ const callSchema = new Schema({
         "url": String,
         "begin": String
       }
-});
+}, { timestamps: true });
 
 
 // Compile model from schema

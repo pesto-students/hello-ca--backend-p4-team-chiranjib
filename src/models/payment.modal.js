@@ -17,7 +17,7 @@ const paymentSchema = new Schema({
     "status_client": Boolean,
     //status by payment partner api
     "status_api": Boolean
-});
+}, { timestamps: true });
 
 
 // Compile model from schema
