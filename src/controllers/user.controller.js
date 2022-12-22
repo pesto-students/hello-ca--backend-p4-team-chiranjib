@@ -1,5 +1,6 @@
 const {getUserIdFromToken} = require('../utils/checkAuth');
 const userService = require('../services/user.service');
+const topics = require('../enums/topics.enum')
 
 async function get(req, res, next) {
   try {
@@ -22,7 +23,17 @@ async function update(req, res, next) {
   }
 }
 
+async function getTopics(req, res, next) {
+  try {
+    res.json({status: 200, topics: topics});
+  } catch(err) {
+    console.error(`Error while get topics`, err.message);
+    next(err);
+  }
+}
+
 module.exports = {
   get,
-  update
+  update,
+  getTopics
 };

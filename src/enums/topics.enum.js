@@ -1,9 +1,11 @@
 const topics = {
-    'tax': 'tax',
-    'gst': 'gst',
-    'audit': 'audit',
-    'company_registration': 'company registration',
-    'tds': 'tds',
-    'tax_planning': 'tax planning',
-    'private_limited_company': 'private limited company'
+    'tax': 'Tax',
+    'gst': 'GST',
+    'audit': 'Audit',
+    'company_registration': 'Company Registration',
+    'tds': 'TDS',
+    'tax_planning': 'Tax Planning',
+    'private_limited_company': 'Private Limited Company'
 }
+
+module.exports = topics;
