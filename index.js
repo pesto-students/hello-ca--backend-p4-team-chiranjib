@@ -1,21 +1,29 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
+const morgan = require('morgan');
+const helmet = require("helmet");
 const app = express();
 const port = process.env.PORT || 3000;
-const programmingLanguagesRouter = require('./src/routes/programmingLanguages.route');
 
+const corsOptions = {
+  origin: '*',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
     extended: true,
   })
 );
+app.use(helmet());
+app.use(morgan());
 
 app.get('/', (req, res) => {
   res.json({'message': 'ok'});
-})
-
-app.use('/programming-languages', programmingLanguagesRouter);
+});
 
 /* Error handler middleware */
 app.use((err, req, res, next) => {
