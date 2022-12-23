@@ -4,15 +4,15 @@ const callController = require('../controllers/call.controller');
 const checkAuth = require('../utils/checkAuth');
 
 /* GET programming languages. */
-router.get('/', callController.get);
+// router.get('/', callController.get);
   
-/* POST programming language */
-router.post('/', callController.create);
+// /* POST programming language */
+// router.post('/', callController.create);
 
-/* PUT programming language */
-router.put('/:id', callController.update);
+// /* PUT programming language */
+// router.put('/:id', callController.update);
 
-/* DELETE programming language */
-router.delete('/:id', callController.remove);
+// /* DELETE programming language */
+// router.delete('/:id', callController.remove);
 
 module.exports = router;

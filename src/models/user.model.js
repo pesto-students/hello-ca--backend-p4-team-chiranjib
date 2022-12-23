@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
     first_name: {
-        type: String
+        type: String,
+        required: true
     },
     last_name: {
         type: String
@@ -23,10 +24,13 @@ const userSchema = new Schema({
         type: Number,
         default: 0
     },
-    member_registration_number: String,
+    member_registration_number: {
+        type: String
+    },
     user_type: {
         type: String,
-        enum: ["USER", "CA", "ADMIN"]
+        enum: ["USER", "CA", "ADMIN"],
+        required: true
     },
     profile_verified: {
         type: Boolean,

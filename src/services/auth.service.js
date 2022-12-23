@@ -30,6 +30,10 @@ async function verifyOtp(body) {
     } else {
       const response = otpHelper.verfifyOTP(body.otp, process.env.MSG_AUTH_KEY, body.country_code + body.mobile);
       if(response.status === 200) {
+        // const updatedUser = await user.updateOne({mobile_verified: true}).save();
+        user.mobile_verified = true;
+        user = await user.save();
+        console.log("updatedUser", user);
         const token = await getJWT(user._id, user.user_type);
         return {token: token, user: user};
       } else {
