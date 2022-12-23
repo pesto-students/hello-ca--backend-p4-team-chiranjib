@@ -23,7 +23,7 @@ async function register(body){
 async function verifyOtp(body) {
   console.log("service body", body);
   try {
-    const user = await User.findOne({country_code: body.country_code, mobile: body.mobile});
+    let user = await User.findOne({country_code: body.country_code, mobile: body.mobile});
     // console.log("user verify otp", user);
     if(!user) {
       return {status: 200, info: "User details not found"};
@@ -32,7 +32,7 @@ async function verifyOtp(body) {
       if(response.status === 200) {
         // const updatedUser = await user.updateOne({mobile_verified: true}).save();
         user.mobile_verified = true;
-        user = await user.save();
+        await user.save();
         console.log("updatedUser", user);
         const token = await getJWT(user._id, user.user_type);
         return {token: token, user: user};
