@@ -1,5 +1,6 @@
 const dotenv =  require('dotenv');
 dotenv.config();
+const mongoose = require('mongoose');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -12,6 +13,7 @@ const userRouter = require('./src/routes/user.route');
 const callRouter = require('./src/routes/call.route');
 const paymentRouter = require('./src/routes/payment.route');
 const { checkAuth } = require('./src/utils/checkAuth');
+mongoose.set('strictQuery', true);
 
 const corsOptions = {
   origin: '*',
@@ -45,6 +47,12 @@ app.use((err, req, res, next) => {
   
   return;
 });
+
+mongoose.connect(process.env.MONGO_URL).then(
+  () => {console.log("Mongo Connected Successfully")},
+  (error) => {console.log("MongoDB connection error")}
+);
+
 
 app.listen(port, '0.0.0.0', () => {
   console.log(`Example app listening at http://localhost:${port}`)
