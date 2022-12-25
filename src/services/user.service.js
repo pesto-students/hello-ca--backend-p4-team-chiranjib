@@ -22,8 +22,12 @@ async function update(user_id, body) {
         if(!user) {
             return {status: 400, info: "User not found"};
         } else {
-            const updatedUser = await User.findOneAndUpdate(user_id, {...body}, {new: true});
-            return { status: 200, user: updatedUser};         
+            user.first_name = body.first_name ? body.first_name: null;
+            user.last_name = body.last_name ? body.last_name: null;
+            user.specialization = body.specialization? body.specialization: null;
+            
+            await user.save();
+            return { status: 200, user: user};         
         }
     } catch(err) {
         console.log("error in updating user", err.message);
