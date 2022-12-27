@@ -30,6 +30,10 @@ const userSchema = new Schema({
         required: true,
         unique: true
     },
+    email: {
+        type: String,
+        required: false
+    },
     available_talk_time: {
         type: Number,
         default: 0
@@ -50,10 +54,10 @@ const userSchema = new Schema({
         type: Boolean,
         default: false
     },
-    specialization: {
+    specialization: [{
         type: String,
         enum: getTopicsList(),
-    },
+    }],
     last_selected_topic: {
         type: String
     },

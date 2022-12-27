@@ -13,7 +13,17 @@ async function get(user_id) {
         console.log("error in get user func", err.message);
         return { status: 400, info: err.message};
     }
-    
+}
+
+async function getSpecializationArray(userSpecializationList) {
+    if(!userSpecializationList) {
+        return null
+    } else {
+        let specializationList = [];
+        console.log(userSpecializationList.split(','));
+        specializationList = userSpecializationList.split(',');
+        return specializationList;
+    }
 }
 
 async function update(user_id, body) {
@@ -24,7 +34,7 @@ async function update(user_id, body) {
         } else {
             user.first_name = body.first_name ? body.first_name: null;
             user.last_name = body.last_name ? body.last_name: null;
-            user.specialization = body.specialization? body.specialization: null;
+            user.specialization = body.specialization? getSpecializationArray(body.specialization): null;
             
             await user.save();
             return { status: 200, user: user};         
