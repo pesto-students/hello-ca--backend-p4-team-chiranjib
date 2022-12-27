@@ -2,7 +2,8 @@ const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 
 const checkAuth = (req, res, next) => {
-    console.log("checkAuth");
+    console.log("checkAuth req.rawHeaders[1]", req.rawHeaders[1]);
+    console.log("request printout", req);
     try {
         console.log(req.rawHeaders[1].split(" ")[1]);
         const token = req.rawHeaders[1].split(" ")[1];
