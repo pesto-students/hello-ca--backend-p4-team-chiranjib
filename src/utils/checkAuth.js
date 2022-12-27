@@ -2,11 +2,11 @@ const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 
 const checkAuth = (req, res, next) => {
-    console.log("checkAuth req.rawHeaders[1]", req.rawHeaders[1]);
+    console.log("checkAuth req.rawHeaders[1]", req.headers.authorization);
     console.log("request printout", req);
     try {
-        console.log(req.rawHeaders[1].split(" ")[1]);
-        const token = req.rawHeaders[1].split(" ")[1];
+        console.log(req.headers.authorization.split(" ")[1]);
+        const token = req.headers.authorization.split(" ")[1];
         jwt.verify(token, process.env.JWT_SIGN_KEY);
         next();
     } catch(err) {
@@ -17,7 +17,7 @@ const checkAuth = (req, res, next) => {
 
 const getUserIdFromToken = (req, res, next) => {
     try {
-        const token = req.rawHeaders[1].split(" ")[1];
+        const token = req.headers.authorization.split(" ")[1];
         const decodedToken = jwt.verify(token, process.env.JWT_SIGN_KEY);
         console.log(decodedToken.user_id);
         return mongoose.Types.ObjectId(decodedToken.user_id);
