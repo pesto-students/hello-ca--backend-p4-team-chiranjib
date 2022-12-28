@@ -61,7 +61,21 @@ const userSchema = new Schema({
     last_selected_topic: {
         type: String
     },
-    last_login: Date,
+    last_login: {
+        type: Date
+    },
+    bank_name: {
+        type: String
+    },
+    branch_name: {
+        type: String
+    },
+    ifsc_code: {
+        type: String
+    },
+    bank_acc_number: {
+        type: Number
+    }
 }, { timestamps: true });
 
 
