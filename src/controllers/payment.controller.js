@@ -1,44 +1,71 @@
-// const programmingLanguages = require('../services/programmingLanguages.service');
+const {getUserIdFromToken} = require('../utils/checkAuth');
+const paymentService = require('../services/payment.service');
+const Razorpay = require('razorpay');
+const crypto = require('crypto');
 
-// async function get(req, res, next) {
-//   try {
-//       res.json(await programmingLanguages.getMultiple(req.query.page));
-//   } catch (err) {
-//       console.error(`Error while getting programming languages`, err.message);
-//       next(err);
-//   }
-// }
+async function orders(req, res, next) {
+  try {
+    const instance = new Razorpay({
+      key_id: process.env.RAZORPAY_KEY_ID,
+      key_secret: process.env.RAZORPAY_SECRET,
+    });
 
-// async function create(req, res, next) {
-//   try {
-//     res.json(await programmingLanguages.create(req.body));
-//   } catch (err) {
-//     console.error(`Error while creating programming language`, err.message);
-//     next(err);
-//   }
-// }
+    //dummy payment data
+    const options = {
+      amount: 50000,
+      currency: 'INR',
+      receipt: 'receipt_1',
+    };
 
-// async function update(req, res, next) {
-//   try {
-//     res.json(await programmingLanguages.update(req.params.id, req.body));
-//   } catch (err) {
-//     console.error(`Error while updating programming language`, err.message);
-//     next(err);
-//   }
-// }
+    const order = await instance.orders.create(options);
+    
+    if (!order) return res.status(500).send('Some error occured');
+    
+    res.json(order);
+  
+  } catch (error) {
+    res.status(500).send(error);
+  }
+}
 
-// async function remove(req, res, next) {
-//   try {
-//     res.json(await programmingLanguages.remove(req.params.id));
-//   } catch (err) {
-//     console.error(`Error while deleting programming language`, err.message);
-//     next(err);
-//   }
-// }
+async function success(req, res, next) {
+  try {
+    const {
+      orderCreationId,
+      razorpayPaymentId,
+      razorpayOrderId,
+      razorpaySignature,
+    } = req.body;
+
+    const shaSum = crypto.createHmac('sha256', process.env.RAZORPAY_SECRET);
+    shaSum.update(`${orderCreationId}|${razorpayPaymentId}`);
+    const digest = shaSum.digest('hex');
+
+    if (digest !== razorpaySignature)
+      return res.status(400).json({ msg: 'Transaction not valid' });
+
+    const newPayment = PaymentDetails({
+      razorpayDetails: {
+        orderId: razorpayOrderId,
+        paymentId: razorpayPaymentId,
+        signature: razorpaySignature,
+      },
+      success: true,
+    });
+
+    await newPayment.save();
+
+    res.json({
+      msg: 'success',
+      orderId: razorpayOrderId,
+      paymentId: razorpayPaymentId,
+    });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+}
 
 module.exports = {
-//   get,
-//   create,
-//   update,
-//   remove
+  orders,
+  success
 };
