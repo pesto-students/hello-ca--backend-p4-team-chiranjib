@@ -1,18 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const paymentController = require('../controllers/payment.controller');
-const checkAuth = require('../utils/checkAuth');
+const {checkAuth} = require('../utils/checkAuth');
 
-/* GET programming languages. */
-// router.get('/', paymentController.get);
-  
-/* POST programming language */
-// router.post('/', paymentController.create);
+/* create new order */
+router.get('/', checkAuth, paymentController.orders);
 
-/* PUT programming language */
-// router.put('/:id', paymentController.update);
-
-/* DELETE programming language */
-// router.delete('/:id', paymentController.remove);
+/* check payment status */
+router.put('/', checkAuth, userController.success);
 
 module.exports = router;
