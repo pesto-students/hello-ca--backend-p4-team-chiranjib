@@ -3,13 +3,19 @@ const router = express.Router();
 const userController = require('../controllers/user.controller');
 const {checkAuth} = require('../utils/checkAuth');
 
-/* GET programming languages. */
+/* GET User details */
 router.get('/',userController.get);
 
-/* PUT programming language */
+/* PUT Update User */
 router.put('/', checkAuth, userController.update);
 
-/* PUT programming language */
+/* Get Issue Topics */
 router.get('/getTopics', checkAuth, userController.getTopics);
+
+/* GET User Balance */
+// router.get('/getUserBalance', checkAuth, userController.getUserBalance);
+
+/* PUT Update Online Status */
+router.patch('/updateOnlineStatus', checkAuth, userController.updateOnlineStatus);
 
 module.exports = router;

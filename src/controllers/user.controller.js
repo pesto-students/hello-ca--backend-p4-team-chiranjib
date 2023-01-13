@@ -32,8 +32,28 @@ async function getTopics(req, res, next) {
   }
 }
 
+async function getUserBalance(req, res, next) {
+  try {
+    res.json({status: 200, topics: topics});
+  } catch(err) {
+    console.error(`Error while get topics`, err.message);
+    next(err);
+  }
+}
+
+async function updateOnlineStatus(req, res, next) {
+  try {
+    const user_id = await getUserIdFromToken(req, res, next);
+    res.json(await userService.updateOnlineStatus(user_id, req.body));
+  } catch(err) {
+    console.error(`Error while updating status`, err.message);
+    next(err);
+  }
+}
+
 module.exports = {
   get,
   update,
-  getTopics
+  getTopics,
+  updateOnlineStatus
 };

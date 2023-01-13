@@ -54,6 +54,10 @@ const userSchema = new Schema({
         type: Boolean,
         default: false
     },
+    is_online: {
+        type: Boolean,
+        default: false
+    },
     specialization: [{
         type: String,
         enum: getTopicsList(),

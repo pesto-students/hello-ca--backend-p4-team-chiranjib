@@ -47,7 +47,25 @@ async function update(user_id, body) {
 }
 
 
+async function updateOnlineStatus(user_id, body) {
+    try {
+        const user = await User.findById({_id: user_id});
+        if(!user) {
+            return {status: 400, info: "User not found"};
+        } else {
+            user.is_online = body.is_online;
+            await user.save();
+            return { status: 200, user: user};         
+        }
+    } catch(err) {
+        console.log("error in updating user online status", err.message);
+        return { status: 400, info: err.message};
+    }
+}
+
 module.exports = {
     get,
-    update
+    update,
+    getSpecializationArray,
+    updateOnlineStatus
 }
