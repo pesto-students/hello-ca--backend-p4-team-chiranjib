@@ -32,6 +32,7 @@ async function verifyOtp(body) {
       if(response.status === 200) {
         // const updatedUser = await user.updateOne({mobile_verified: true}).save();
         user.mobile_verified = true;
+        user.last_login = new Date();
         await user.save();
         console.log("updatedUser", user);
         const token = await getJWT(user._id, user.user_type);
