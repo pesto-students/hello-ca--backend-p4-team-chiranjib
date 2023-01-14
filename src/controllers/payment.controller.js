@@ -25,8 +25,32 @@ async function getUserPaymentHistory(req, res, next) {
     }
 }
 
+async function createCAPayoutEntry(req, res, next) {
+    try {
+        console.log("in createCAPayoutEntry");
+        const user_id = await getUserIdFromToken(req, res, next);
+        res.json(await paymentService.createCAPayoutEntry(user_id, req.body));
+    } catch (err) {
+        console.error(`Error while creating user payment entry`, err.message);
+        next(err);
+    }
+}
+
+async function getCAPaymentOutHistory(req, res, next) {
+    try {
+      console.log("in getCAPaymentOutHistory");
+        const user_id = await getUserIdFromToken(req, res, next);
+        res.json(await paymentService.getCAPaymentOutHistory(user_id));
+    } catch (err) {
+        console.error(`Error while getting ca payout history`, err.message);
+        next(err);
+    }
+}
+
 
 module.exports = {
     createUserPaymentEntry,
-    getUserPaymentHistory
+    getUserPaymentHistory,
+    createCAPayoutEntry,
+    getCAPaymentOutHistory
 }

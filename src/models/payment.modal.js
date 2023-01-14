@@ -22,12 +22,18 @@ const paymentSchema = new Schema({
     },
     // status sent by frontend client
     "status_client": {
-        type: Boolean,
-        required: true
+        type: Boolean
     },
     //status by payment partner api
     "status_api": {
         type: Boolean
+    },
+    "direction": {
+        type: String,
+        default: "inward"
+    },
+    "reference_number": {
+        type: String
     }
 }, { timestamps: true });
 

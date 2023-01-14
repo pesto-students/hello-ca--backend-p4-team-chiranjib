@@ -46,7 +46,52 @@ async function getUserPaymentHistory(user_id) {
     }
 }
 
+async function createCAPayoutEntry(user_id, body) {
+    try {
+        const user = await User.findById({_id: user_id});
+        if(!user) {
+            return {status: 400, info: "User not found"};
+        } else {
+            if (body.hasOwnProperty('amount')) {
+                const paymentObj = {
+                    user: user_id,
+                    amount: body.amount ? body.amount : 0,
+                    tax: body.amount ? body.amount * 0.18: 0,
+                    reference_number: body.reference_number ? body.reference_number : 0,
+                    direction: "outward"
+                }
+                const paymentOut = await Payment.create(paymentObj);
+                return {status: 200, payment: paymentOut};
+            } else {
+                console.log("no recharge_amount key present in body", err.message);
+                return { status: 400, info: "recharge_amount key not sent"};
+            }       
+        }
+    } catch(err) {
+        console.log("error in updating user", err.message);
+        return { status: 400, info: err.message};
+    }
+}
+
+async function getCAPaymentOutHistory(user_id) {
+    try {
+        const user = await User.findById({_id: user_id});
+        if(!user) {
+            return {status: 400, info: "User not found"};
+        } else {
+            const paymentOutHistory = await Payment.find({user: user_id, direction: "outward"});
+            return {status: 200, payments: paymentOutHistory};
+        }
+    } catch(err) {
+        console.log("error in updating user", err.message);
+        return { status: 400, info: err.message};
+    }
+}
+
+
 module.exports = {
     createUserPaymentEntry,
-    getUserPaymentHistory
+    getUserPaymentHistory,
+    createCAPayoutEntry,
+    getCAPaymentOutHistory
 }
