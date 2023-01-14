@@ -35,6 +35,7 @@ const userSchema = new Schema({
         required: false
     },
     available_talk_time: {
+        //value is in seconds
         type: Number,
         default: 0
     },
