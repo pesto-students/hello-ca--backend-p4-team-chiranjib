@@ -63,9 +63,21 @@ async function updateOnlineStatus(user_id, body) {
     }
 }
 
+async function updateUserTalkTime(user, amount) {
+    try {
+        user.available_talk_time += (amount/process.env.PRICE_PER_SEC);
+        await user.save();
+        return { status: 200, user: user};  
+    } catch(err) {
+        console.log("error in updating user talk time", err.message);
+        return { status: 400, info: err.message};
+    }
+}
+
 module.exports = {
     get,
     update,
     getSpecializationArray,
-    updateOnlineStatus
+    updateOnlineStatus,
+    updateUserTalkTime
 }

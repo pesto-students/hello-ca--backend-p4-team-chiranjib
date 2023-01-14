@@ -9,16 +9,30 @@ const paymentSchema = new Schema({
         "type": Schema.Types.ObjectId,
         "ref": "User"
     },
-    "amount": Number,
-    "tax": Number,
-    "minutes_purchased": Number,
-    "status": Boolean,
+    "amount": {
+        type: Number,
+        required: true
+    },
+    "tax": {
+        type: Number,
+        required: true
+    },
+    "minutes_purchased": {
+        type: Number
+    },
     // status sent by frontend client
-    "status_client": Boolean,
+    "status_client": {
+        type: Boolean,
+        required: true
+    },
     //status by payment partner api
-    "status_api": Boolean
+    "status_api": {
+        type: Boolean
+    }
 }, { timestamps: true });
 
 
 // Compile model from schema
 const Payment = mongoose.model("Payment", paymentSchema);
+
+module.exports = Payment;
