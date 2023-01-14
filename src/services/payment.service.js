@@ -31,6 +31,22 @@ async function createUserPaymentEntry(user_id, body) {
     }
 }
 
+async function getUserPaymentHistory(user_id) {
+    try {
+        const user = await User.findById({_id: user_id});
+        if(!user) {
+            return {status: 400, info: "User not found"};
+        } else {
+            const paymentHistory = await Payment.find({user: user_id});
+            return {status: 200, payments: paymentHistory};
+        }
+    } catch(err) {
+        console.log("error in updating user", err.message);
+        return { status: 400, info: err.message};
+    }
+}
+
 module.exports = {
-    createUserPaymentEntry
+    createUserPaymentEntry,
+    getUserPaymentHistory
 }

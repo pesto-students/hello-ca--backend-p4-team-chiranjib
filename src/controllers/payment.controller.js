@@ -14,18 +14,19 @@ async function createUserPaymentEntry(req, res, next) {
     }
 }
 
-// async function getUserPaymentDetails(req, res, next) {
-//     try {
-//       console.log("in get user");
-//         const user_id = await getUserIdFromToken(req, res, next);
-//         res.json(await userService.get(user_id));
-//     } catch (err) {
-//         console.error(`Error while getting user details`, err.message);
-//         next(err);
-//     }
-// }
+async function getUserPaymentHistory(req, res, next) {
+    try {
+      console.log("in getUserPaymentHistory");
+        const user_id = await getUserIdFromToken(req, res, next);
+        res.json(await paymentService.getUserPaymentHistory(user_id));
+    } catch (err) {
+        console.error(`Error while getting user details`, err.message);
+        next(err);
+    }
+}
 
 
 module.exports = {
-    createUserPaymentEntry
+    createUserPaymentEntry,
+    getUserPaymentHistory
 }
