@@ -3,11 +3,11 @@ const router = express.Router();
 const callController = require('../controllers/call.controller');
 const checkAuth = require('../utils/checkAuth');
 
-/* GET programming languages. */
-// router.get('/', callController.get);
+/* GET User Balance */
+router.get('/welcomeUser', callController.welcomeUser);
   
-// /* POST programming language */
-// router.post('/', callController.create);
+// /* POST Create Call Logs */
+router.post('/createLogUserCall', callController.createLogUserCall);
 
 // /* PUT programming language */
 // router.put('/:id', callController.update);

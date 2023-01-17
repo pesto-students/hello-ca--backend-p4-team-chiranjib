@@ -36,7 +36,7 @@ app.get('/', (req, res) => {
 
 app.use('/auth', authRouter);
 app.use('/user', checkAuth, userRouter);
-app.use('/call', checkAuth, callRouter);
+app.use('/call', callRouter);
 app.use('/payment', checkAuth, paymentRouter);
 
 /* Error handler middleware */
