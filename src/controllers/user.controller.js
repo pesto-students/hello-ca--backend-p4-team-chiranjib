@@ -51,9 +51,19 @@ async function updateOnlineStatus(req, res, next) {
   }
 }
 
+async function getCaList(req, res, next) {
+  try {
+    res.json(await userService.getCaList());
+  } catch(err) {
+    console.error(`Error while getting CA List`, err.message);
+    next(err);
+  }
+}
+
 module.exports = {
   get,
   update,
   getTopics,
-  updateOnlineStatus
+  updateOnlineStatus,
+  getCaList,
 };

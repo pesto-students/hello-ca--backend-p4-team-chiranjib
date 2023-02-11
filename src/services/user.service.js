@@ -74,10 +74,30 @@ async function updateUserTalkTime(user, amount) {
     }
 }
 
+async function getCaList() {
+    try {
+        const agent = await User.find({user_type: 'CA', is_online: true, profile_verified: true}, {"_id": 0, "mobile": 1, "country_code": 1});
+        console.log(agent);
+        let agentNumberList = [];
+        if (agent && agent.length !== 0) {
+            for(let i = 0; i < agent.length; i++) {
+                agentNumberList.push('+' + (agent[i].country_code).toString() + (agent[i].mobile).toString());
+            }
+        } else {
+        agentNumberList = [];
+        }
+        return {agentNumberList};  
+    } catch(err) {
+        console.log("error in list of CAs", err.message);
+        return { status: 400, info: err.message};
+    }
+}
+
 module.exports = {
     get,
     update,
     getSpecializationArray,
     updateOnlineStatus,
-    updateUserTalkTime
+    updateUserTalkTime,
+    getCaList
 }
