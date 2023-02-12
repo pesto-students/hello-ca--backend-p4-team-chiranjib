@@ -57,12 +57,16 @@ async function welcomeUser(queryParameters){
         }
         
         let resObj = {
-          "destination": {
-            "numbers": numbersList,
-          }
+          fetch_after_attempt: false,
+          destination: {
+            numbers: numbersList,
+          },
+          record: true,
+          recording_channels: 'dual',
+          max_ringing_duration: 15,
         }
         console.log(resObj);
-        return {resObj};  
+        return resObj;  
     } catch(err) {
         console.log("error in list of CAs", err.message);
         return { status: 400, info: err.message};
