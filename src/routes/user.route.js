@@ -18,7 +18,5 @@ router.get('/getTopics', checkAuth, userController.getTopics);
 /* PUT Update Online Status */
 router.patch('/updateOnlineStatus', checkAuth, userController.updateOnlineStatus);
 
-/* GET CA List */
-router.get('/getCaList', checkAuth, userController.getCaList);
 
 module.exports = router;

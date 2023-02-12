@@ -43,7 +43,34 @@ async function welcomeUser(queryParameters){
     }
   }
 
+  async function getCaList() {
+    console.log("in getCA list call service");
+    try {
+        const agent = await User.find({user_type: 'CA', is_online: true, profile_verified: true}, {"_id": 0, "mobile": 1, "country_code": 1});
+        let numbersList = [];
+        if (agent && agent.length !== 0) {
+            for(let i = 0; i < agent.length; i++) {
+              numbersList.push('+' + (agent[i].country_code).toString() + (agent[i].mobile).toString());
+            }
+        } else {
+          numbersList = [];
+        }
+        
+        let resObj = {
+          "destination": {
+            "numbers": numbersList,
+          }
+        }
+        console.log(resObj);
+        return {resObj};  
+    } catch(err) {
+        console.log("error in list of CAs", err.message);
+        return { status: 400, info: err.message};
+    }
+}
+
 module.exports = {
     welcomeUser,
-    createLogUserCall
+    createLogUserCall,
+    getCaList
 }

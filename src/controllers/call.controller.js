@@ -19,8 +19,19 @@ async function createLogUserCall(req, res, next) {
   }
 }
 
+async function getCaList(req, res, next) {
+  console.log("in call controller getCAlist");
+  try {
+    res.json(await callService.getCaList());
+  } catch(err) {
+    console.error(`Error while getting CA List`, err.message);
+    next(err);
+  }
+}
+
 
 module.exports = {
     welcomeUser,
-    createLogUserCall
+    createLogUserCall,
+    getCaList
 };
