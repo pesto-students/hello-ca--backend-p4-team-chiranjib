@@ -36,6 +36,17 @@ async function welcomeUser(queryParameters){
   async function createLogUserCall(body) {
     console.log("createLogUserCall", body);
     try {
+      const userNumber = parseInt(body.CallFrom.substring(1));
+      let user = await User.findOne({ mobile: userNumber });
+      let available_talk_time = user.available_talk_time;
+      console.log(userNumber, available_talk_time);
+      if(available_talk_time >= 0) {
+        const OnCallDuration = body.Legs[0].OnCallDuration;
+        if (available_talk_time > OnCallDuration) available_talk_time -= OnCallDuration;
+        else available_talk_time = 0;
+      }
+      user.available_talk_time = available_talk_time;
+      await user.save();
       await CallLog.create(body);
     } catch(err) {
       console.log("error while call logging");
@@ -77,7 +88,7 @@ async function getCallLogsForCA(user_id, mobile) {
   try {
     const agentNumberString = "0" + mobile;
     console.log(user_id, agentNumberString);
-    const callLogs = await CallLog.find({ DialWhomNumber: agentNumberString }, {'created': 1, 'RecordingUrl': 1, 'Legs': 1});
+    const callLogs = await CallLog.find({ DialWhomNumber: agentNumberString }, {'created': 1, 'RecordingUrl': 1, 'Legs': 1, 'CustomField': 1});
     return { status: 200, callLogs: callLogs };
   } catch(err) {
     console.log("error while fetching call logs for CA");
@@ -89,7 +100,7 @@ async function getCallLogsForUser(user_id, mobile) {
   try {
     const userNumberString = "0" + mobile;
     console.log(user_id, userNumberString);
-    const callLogs = await CallLog.find({ CallFrom: userNumberString }, {'created': 1, 'RecordingUrl': 1, 'Legs': 1});
+    const callLogs = await CallLog.find({ CallFrom: userNumberString }, {'created': 1, 'RecordingUrl': 1, 'Legs': 1, 'CustomField': 1});
     return { status: 200, callLogs: callLogs };
   } catch(err) {
     console.log("error while fetching call logs for CA");
