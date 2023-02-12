@@ -48,62 +48,41 @@ const callSchema = new Schema({
     }
 }, { timestamps: true });
 
-
 const callLogSchema = {
-  request_id: {
-    type: String
-  },
-  method: {
-    type: String
-  },
-  http_code: {
-    type: Number
-  },
-  response: {
-    code: {
-      type: Number
-    },
-    status: {
-      type: String
-    },
-    call_details: {
-      sid: {
-        type: String
-      },
-      direction: {
-        type: String
-      },
-      virtual_number: {
-        type: Number
-      },
-      state: {
-        type: String
-      },
-      status: {
-        type: String
-      },
-      legs: {
-        type: String
-      },
-      created_time: Date,
-      updated_time: Date,
-      start_time: Date,
-      end_time: Date,
-      total_duration: {
-        type: Number
-      },
-      total_talk_time: {
-        type: Number
-      },
-      custom_field: {
-        type: String
-      },
-      app_id: String,
-      app_name: String,
-      digits: String,
-      recordings: String
+  "CallSid": String,
+  "CallFrom": String,
+  "CallTo": String,
+  "CallStatus": String,
+  "Direction": String,
+  "ForwardedFrom": String,
+  "Created": String,
+  "DialCallDuration": String,
+  "RecordingUrl": String,
+  "StartTime": String,
+  "EndTime": String,
+  "DialCallStatus": String,
+  "CallType": String,
+  //lawyer number
+  "DialWhomNumber": String,
+  "ProcessStatus": String,
+  "flow_id": String,
+  "tenant_id": String,
+  "From": String,
+  "To": String,
+  "RecordingAvailableBy": String,
+  "CurrentTime": String,
+  "OutgoingPhoneNumber": String,
+  "Legs": [
+    {
+      "Number": String,
+      "Type": String,
+      "OnCallDuration": String,
+      "CallerId": String,
+      "CauseCode": String,
+      "Cause": String
     }
-  }
+  ]
+
 }
 
 // Compile model from schema

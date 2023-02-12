@@ -6,7 +6,7 @@ const callController = require('../controllers/call.controller');
 router.get('/welcomeUser', callController.welcomeUser);
   
 // /* POST Create Call Logs */
-router.post('/createLogUserCall', callController.createLogUserCall);
+router.get('/createLogUserCall', callController.createLogUserCall);
 
 /* GET CA List */
 router.get('/getCaList', callController.getCaList);

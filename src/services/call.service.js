@@ -34,7 +34,7 @@ async function welcomeUser(queryParameters){
   }
 
   async function createLogUserCall(body) {
-    console.log("createLogUserCall");
+    console.log("createLogUserCall", body);
     try {
       await CallLog.create(body);
     } catch(err) {

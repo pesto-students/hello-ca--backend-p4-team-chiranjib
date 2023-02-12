@@ -12,7 +12,7 @@ async function welcomeUser(req, res, next) {
 
 async function createLogUserCall(req, res, next) {
   try {
-    res.json(await callService.createLogUserCall(req.body));
+    res.json(await callService.createLogUserCall(req.query));
   } catch (err) {
     console.error(`Error while creating call logs`, err.message);
     next(err);
