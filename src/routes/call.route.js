@@ -11,4 +11,11 @@ router.get('/createLogUserCall', callController.createLogUserCall);
 /* GET CA List */
 router.get('/getCaList', callController.getCaList);
 
+/* Get CA Call Log List */
+router.get('/getCallLogsForCA', callController.getCallLogsForCA);
+
+/* Get CA Call Log List */
+router.get('/getCallLogsForUser', callController.getCallLogsForUser);
+
+
 module.exports = router;

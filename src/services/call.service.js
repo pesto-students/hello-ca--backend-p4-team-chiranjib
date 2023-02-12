@@ -73,8 +73,34 @@ async function welcomeUser(queryParameters){
     }
 }
 
+async function getCallLogsForCA(user_id, mobile) {
+  try {
+    const agentNumberString = "0" + mobile;
+    console.log(user_id, agentNumberString);
+    const callLogs = await CallLog.find({ DialWhomNumber: agentNumberString }, {'created': 1, 'RecordingUrl': 1, 'Legs': 1});
+    return { status: 200, callLogs: callLogs };
+  } catch(err) {
+    console.log("error while fetching call logs for CA");
+    return {status: 400, info: err.message};
+  }
+}
+
+async function getCallLogsForUser(user_id, mobile) {
+  try {
+    const userNumberString = "0" + mobile;
+    console.log(user_id, userNumberString);
+    const callLogs = await CallLog.find({ CallFrom: userNumberString }, {'created': 1, 'RecordingUrl': 1, 'Legs': 1});
+    return { status: 200, callLogs: callLogs };
+  } catch(err) {
+    console.log("error while fetching call logs for CA");
+    return {status: 400, info: err.message};
+  }
+}
+
 module.exports = {
     welcomeUser,
     createLogUserCall,
-    getCaList
+    getCaList,
+    getCallLogsForCA,
+    getCallLogsForUser
 }
